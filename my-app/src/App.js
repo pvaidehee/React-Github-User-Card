@@ -1,51 +1,76 @@
 import React from 'react';
-
 import './App.css';
 import axios from 'axios'
 import User from './Components/User';
 import Followers from './Components/Followers';
 
 class App extends React.Component {
-
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      user: [],
-      followers: []
+      user: "pvaidehee",
+      userData: [],
+      followersData: [],
+      search: "",
+      typedString: "",
     };
-}
-  componentDidMount() {
+  }
+
+  getUserInfo = () => {
     axios
-      .get(`https://api.github.com/users/pvaidehee`)
-      .then(response => {
-        console.log('here is the response', response)
-        this.setState({ user: response.data})
+      .get(
+        `https://api.github.com/users/${this.state.user}`
+      )
+      .then((res) => {
+        console.log(res);
+        this.setState({ userData: res.data });
       })
-      .catch(error => {
-        console.log('here is the ',error)
+      .catch((error) => console.log("Error", error));
+  };
+
+  getFollowersInfo = () => {
+    axios
+      .get(
+        `https://api.github.com/users/${this.state.user}/followers`
+      )
+      .then((res) => {
+        this.setState({ followersData: res.data });
+        console.log(res.data);
       })
-      axios
-      .get(`https://api.github.com/users/pvaidehee/followers`)
-      .then(response => {
-        console.log('here is the list of followers', response)
-        this.setState({ followers: response.data})
-      })
-      .catch(error => {
-        console.log('here is the ',error)
-      })
+      .catch((error) => console.log("Error", error));
+  };
+
+  componentDidMount() {
+    this.getUserInfo();
+    this.getFollowersInfo();
   }
 
 
+  render() {
+    return (
+      <div className= 'formapp'>
+        <header className= 'headapp'>React GitHub User Card</header>
 
-render() {
-  return (
-    <div className="App">
-      <User user={this.state.user}/>
-      <Followers followers={this.state.followers}/>
+        <div className = 'userapp'>
+          <User
+            userData={this.state.userData}
+            submitHandler={this.submitHandler}
+            typedString={this.typedString}
+            searchHandler={this.searchHandler}
+          />
+        </div>
 
-    </div>
-  );
-}
+        <div className='followapp'>
+
+        <Followers
+          followersData={this.state.followersData}
+          getUserInfo={this.getUserInfo}
+          
+        />
+      </div>
+      </div>
+    );
+  }
 }
 
 export default App;

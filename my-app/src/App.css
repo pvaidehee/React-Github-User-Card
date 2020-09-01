@@ -31,13 +31,33 @@
 .user{
   margin-top:40px;
 }
-h3{
-  color:salmon;
-}
 
 img{
-  border-radius:50%;
-  width:45%;
+  border-radius:30%;
+  width:40%;
+}
+
+.formapp{
+  text-align: center;
+}
+
+.headapp{
+  font-size:2rem;
+  font-weight: bolder;
+  margin:20px 0;
+  color: purple;
+}
+h2{
+  text-align: center;
+  color:green;
+}
+button{
+  margin: 18px 0;
+  height:38px;
+  background:skyblue;
+  border-color: skyblue;
+  color:darkblue;
+  font-size: 20px;
 }
 
 @keyframes App-logo-spin {

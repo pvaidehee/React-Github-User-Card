@@ -1,18 +1,37 @@
 import React from 'react';
 
-
-function User(props){
-    console.log('from user component', props)
-    return(
-        <div>   
-                <div key={Date.now()} className='user'>
-                    <img src={props.user.avatar_url} alt={props.user.login}/>
-                    <div>
-                        <h3>{props.user.login}</h3>
-                    </div>
-                </div>
+const User = (props) => {
+    return (
+      <section>
+        <div>
+          <img src={props.userData.avatar_url} alt={props.userData.name} />
+          <h1>{props.userData.name}</h1>
+          <div>
+            <i>{props.userData.login}</i>
+          </div>
+          <div>
+            <b>Location: </b>
+            {props.userData.location}
+          </div>
+          <div>
+            <b>Followers: </b>
+            {props.userData.followers}
+          </div>
+          <div>
+            <b>Following: </b>
+            {props.userData.following}
+          </div>
+          <div>
+            <b>Bio: </b>
+            {props.userData.bio}
+          </div>
+          <a href={props.userData.html_url}>
+            <button>View Profile</button>
+          </a>
         </div>
-    )
-}
+      </section>
+    );
+  };
+  
 
 export default User;
